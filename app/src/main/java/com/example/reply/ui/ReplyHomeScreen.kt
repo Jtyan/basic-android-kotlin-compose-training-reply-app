@@ -158,10 +158,13 @@ private fun ReplyAppContent(
     Box (modifier = modifier) {
         Row(modifier = modifier) {
             AnimatedVisibility(visible = navigationType == ReplyNavigationType.NAVIGATION_RAIL) {
+                val navigationRailContentDescription = stringResource(R.string.navigation_rail)
                 ReplyNavigationRail(
                     currentTab = replyUiState.currentMailbox,
                     onTabPressed = onTabPressed,
                     navigationItemContentList = navigationItemContentList,
+                    modifier = Modifier
+                        .testTag(navigationRailContentDescription)
                 )
             }
             Column(
@@ -173,7 +176,7 @@ private fun ReplyAppContent(
                     ReplyListAndDetailContent(
                         replyUiState = replyUiState,
                         onEmailCardPressed = onEmailCardPressed,
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier.weight(1f).testTag(stringResource(R.string.details_screen))
                     )
                 } else {
                     ReplyListOnlyContent(
@@ -186,12 +189,14 @@ private fun ReplyAppContent(
                     )
                 }
                 AnimatedVisibility(visible = navigationType == ReplyNavigationType.BOTTOM_NAVIGATION) {
+                    val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
                     ReplyBottomNavigationBar(
                         currentTab = replyUiState.currentMailbox,
                         onTabPressed = onTabPressed,
                         navigationItemContentList = navigationItemContentList,
                         modifier = Modifier
                             .fillMaxWidth()
+                            .testTag(bottomNavigationContentDescription)
                     )
                 }
             }
